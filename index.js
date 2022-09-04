@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT||5000;
+const port = process.env.PORT || 5000;
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
 const Object = require('mongodb').ObjectId;
@@ -41,7 +41,9 @@ async function run() {
             res.json(service);
         })
 
-
+        app.get('/hello', (req, res) => {
+            res.send('Hello updated')
+        })
 
         //POST API
         app.post('/services', async (req, res) => {
@@ -78,5 +80,29 @@ app.get('/', (req, res) => {
 })
 
 app.listen(port, () => {
-    console.log('Runing genius server on Por', port);
+    console.log('Runing genius server on Port', port);
 })
+
+
+/*
+One Time
+1. heroku account opening
+2. Heroku software installation
+
+Every Project
+1. git init
+2. .gitignore (node_module,.env)
+3. push everything to git
+4. make sure yo have this script: "start": "node index.js",
+5. Make sure: put process.env.PORT in front of your port numeral
+6. heroku login
+7. heroku create (only one time a projects)
+8. command : git push heroku main
+
+----------------------------------------------------------------
+
+update:
+1. git add. , git commit -m" ", git push
+2. git push heroku main
+
+*/
