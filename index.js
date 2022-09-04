@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 5000;
+const port = process.env.PORT||5000;
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
 const Object = require('mongodb').ObjectId;
@@ -23,23 +23,23 @@ async function run() {
         const servicesCollection = database.collection("services");
 
         app.get('/services', async (req, res) => {
-            const cursor=servicesCollection.find({});
+            const cursor = servicesCollection.find({});
 
             const services = await cursor.toArray();
             res.send(services)
         })
 
-// GET Single Service 
+        // GET Single Service 
 
-app.get('/services/:id', async (req, res) => {
-    const id=req.params.id;
+        app.get('/services/:id', async (req, res) => {
+            const id = req.params.id;
 
-    console.log('Getting specific service');
-    const query={_id:Object(id)};
+            console.log('Getting specific service');
+            const query = { _id: Object(id) };
 
-    const service=await servicesCollection.findOne(query);
-    res.json(service);
-})
+            const service = await servicesCollection.findOne(query);
+            res.json(service);
+        })
 
 
 
@@ -58,10 +58,10 @@ app.get('/services/:id', async (req, res) => {
 
         //Delete api
         app.delete('/services/:id', async (req, res) => {
-           const id=req.params.id
-           const query={_id:Object(id)};
-           const result = await servicesCollection.deleteOne(query);
-           res.json(result);
+            const id = req.params.id
+            const query = { _id: Object(id) };
+            const result = await servicesCollection.deleteOne(query);
+            res.json(result);
         })
 
 
